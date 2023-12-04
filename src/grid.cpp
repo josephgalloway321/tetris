@@ -1,5 +1,6 @@
 #include <iostream>
 #include "../header/grid.hpp"
+#include "../header/colors.hpp"
 
 // Default constructor
 Grid::Grid() {
@@ -28,20 +29,6 @@ void Grid::print() const {
     }
     std::cout << "\n";
   }
-}
-
-// Get color options for each grid cell
-std::vector<Color> Grid::get_cell_colors() const {
-  const Color dark_grey = {26, 31, 40, 255};
-  const Color green = {47, 230, 23, 255};
-  const Color red = {232, 18, 18, 255};
-  const Color orange = {226, 116, 17, 255};
-  const Color yellow = {237, 234, 4, 255};
-  const Color purple = {166, 0, 247, 255};
-  const Color cyan = {21, 204, 209, 255};
-  const Color blue = {13, 64, 216, 255};
-
-  return {dark_grey, green, red, orange, yellow, purple, cyan, blue};
 }
 
 // Draw the appropriate color for specific cells

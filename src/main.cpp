@@ -1,9 +1,7 @@
 #include <iostream>
 #include <raylib.h>
 #include "../header/grid.hpp"
-
-// Define colors
-const Color DARK_BLUE = {44, 44, 127, 255};
+#include "../header/colors.hpp"
 
 int main()
 {
@@ -23,7 +21,7 @@ int main()
 
     // Draw
     BeginDrawing();
-    ClearBackground(DARK_BLUE);
+    ClearBackground(CUSTOM_DARK_BLUE);
 
     grid.draw();
 

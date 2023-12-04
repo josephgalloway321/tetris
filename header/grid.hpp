@@ -8,7 +8,6 @@ class Grid {
     int num_cols;
     int cell_size;  // Size of each grid cell in pixels
     std::vector<Color> colors;
-    std::vector<Color> get_cell_colors() const;
 
   public:
     Grid();
