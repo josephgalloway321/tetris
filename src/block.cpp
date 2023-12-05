@@ -37,5 +37,4 @@ std::vector<Position> Block::get_cell_positions() {
     moved_tiles.push_back(new_position);
   }
   return moved_tiles;
-
 }
