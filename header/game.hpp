@@ -10,6 +10,8 @@ class Game {
     Block next_block;
     bool is_block_outside();
     void rotate_block();
+    void lock_block();
+    bool block_fits();
 
   public:
     Game();

@@ -1,7 +1,7 @@
 #include "../header/game.hpp"
 #include <random>
 
-Game::Game () {
+Game::Game() {
   blocks = get_all_blocks();  // Vector holds available block options
   current_block = get_random_block();
   next_block = get_random_block();
@@ -51,7 +51,7 @@ void Game::handle_input() {
 // Increase current block offset so draw will update accordingly
 void Game::move_block_left() {
   current_block.move(0, -1);
-  if (is_block_outside()) {
+  if (is_block_outside() || block_fits() == false) {
     current_block.move(0, 1);  // Move back within bounds
   }
 }
@@ -59,7 +59,7 @@ void Game::move_block_left() {
 // Increase current block offset so draw will update accordingly
 void Game::move_block_right() {
   current_block.move(0, 1);
-  if (is_block_outside()) {
+  if (is_block_outside() || block_fits() == false) {
     current_block.move(0, -1);  // Move back within bounds
   }
 }
@@ -67,8 +67,9 @@ void Game::move_block_right() {
 // Increase current block offset so draw will update accordingly
 void Game::move_block_down() {
   current_block.move(1, 0);
-  if (is_block_outside()) {
+  if (is_block_outside() || block_fits() == false) {
     current_block.move(-1, 0);  // Move back within bounds
+    lock_block();
   }
 }
 
@@ -85,7 +86,30 @@ bool Game::is_block_outside() {
 
 void Game::rotate_block() {
   current_block.rotate();
-  if (is_block_outside()) {
+  if (is_block_outside() || block_fits() == false) {
     current_block.undo_rotate();
   }
+}
+
+// Update grid values to represent locked block when touches bottom screen
+void Game::lock_block() {
+  // Get the vector of positions for current block in grid
+  std::vector<Position> tiles = current_block.get_cell_positions();
+  for (Position item : tiles) {
+    grid.grid[item.row][item.column] = current_block.id;
+  }
+  current_block = next_block;
+  next_block = get_random_block();
+}
+
+// Check if any of the cells in the 3x3 cell grid are occupied
+bool Game::block_fits() {
+  // First, get the positions of each cell for the current block
+  std::vector<Position> tiles = current_block.get_cell_positions();
+  for(Position item : tiles) {
+    if(grid.is_cell_empty(item.row, item.column) == false) {
+      return false;
+    }
+  }
+  return true;
 }
