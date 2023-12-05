@@ -11,6 +11,7 @@ class LBlock : public Block {
       cells[1] = {Position(0, 1), Position(1, 1), Position(2, 1), Position(2, 2)};
       cells[2] = {Position(1, 0), Position(1, 1), Position(1, 2), Position(2, 0)};
       cells[3] = {Position(0, 0), Position(0, 1), Position(1, 1), Position(2, 1)};
+      move(0, 3);  // Start the block in the center of the screen at the top
     }
 };
 
@@ -23,6 +24,7 @@ class JBlock : public Block {
       cells[1] = {Position(0, 1), Position(0, 2), Position(1, 1), Position(2, 1)};
       cells[2] = {Position(1, 0), Position(1, 1), Position(1, 2), Position(2, 2)};
       cells[3] = {Position(0, 1), Position(1, 1), Position(2, 0), Position(2, 1)};
+      move(0, 3);  // Start the block in the center of the screen at the top
     }
 };
 
@@ -35,6 +37,7 @@ class IBlock : public Block {
       cells[1] = {Position(0, 2), Position(1, 2), Position(2, 2), Position(3, 2)};
       cells[2] = {Position(2, 0), Position(2, 1), Position(2, 2), Position(2, 3)};
       cells[3] = {Position(0, 1), Position(1, 1), Position(2, 1), Position(3, 1)};
+      move(-1, 3);  // Start the block in the center of the screen at the top
     }
 };
 
@@ -47,6 +50,7 @@ class OBlock : public Block {
       cells[1] = {Position(0, 0), Position(0, 1), Position(1, 0), Position(1, 1)};
       cells[2] = {Position(0, 0), Position(0, 1), Position(1, 0), Position(1, 1)};
       cells[3] = {Position(0, 0), Position(0, 1), Position(1, 0), Position(1, 1)};
+      move(0, 4);  // Start the block in the center of the screen at the top
     }
 };
 
@@ -59,6 +63,7 @@ class SBlock : public Block {
       cells[1] = {Position(0, 1), Position(1, 1), Position(1, 2), Position(2, 2)};
       cells[2] = {Position(1, 1), Position(1, 2), Position(2, 0), Position(2, 1)};
       cells[3] = {Position(0, 0), Position(1, 0), Position(1, 1), Position(2, 1)};
+      move(0, 3);  // Start the block in the center of the screen at the top
     }
 };
 
@@ -71,6 +76,7 @@ class TBlock : public Block {
       cells[1] = {Position(0, 1), Position(1, 1), Position(1, 2), Position(2, 1)};
       cells[2] = {Position(1, 0), Position(1, 1), Position(1, 2), Position(2, 1)};
       cells[3] = {Position(0, 1), Position(1, 0), Position(1, 1), Position(2, 1)};
+      move(0, 3);  // Start the block in the center of the screen at the top
     }
 };
 
@@ -83,5 +89,6 @@ class ZBlock : public Block {
       cells[1] = {Position(0, 2), Position(1, 1), Position(1, 2), Position(2, 1)};
       cells[2] = {Position(1, 0), Position(1, 1), Position(2, 1), Position(2, 2)};
       cells[3] = {Position(0, 1), Position(1, 0), Position(1, 1), Position(2, 0)};
+      move(0, 3);  // Start the block in the center of the screen at the top
     }
 };

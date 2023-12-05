@@ -13,15 +13,13 @@ int main()
   // Create game objects
   Grid grid;
   //grid.print();
-
-  // TEST
-  //LBlock block;
-  //JBlock block;
-  //IBlock block;
-  //OBlock block;
-  //SBlock block;
-  //TBlock block;
-  //ZBlock block;
+  LBlock l_block;
+  JBlock j_block;
+  IBlock i_block;
+  OBlock o_block;
+  SBlock s_block;
+  TBlock t_block;
+  ZBlock z_block;
 
   // Game loop
   while (WindowShouldClose() == false) {
@@ -34,7 +32,7 @@ int main()
     ClearBackground(CUSTOM_DARK_BLUE);
 
     grid.draw();
-    //block.draw();  // TEST
+    z_block.draw();
 
     EndDrawing();
   }
