@@ -2,6 +2,7 @@
 #include <random>
 
 Game::Game() {
+  game_over = false;
   blocks = get_all_blocks();  // Vector holds available block options
   current_block = get_random_block();
   next_block = get_random_block();
@@ -32,6 +33,13 @@ void Game::draw() {
 
 void Game::handle_input() {
   int key_pressed = GetKeyPressed();
+
+  // If no key is pressed, then key_pressed is 0
+  if(game_over && key_pressed != 0) {
+    game_over = false;
+    reset();
+  }
+
   switch(key_pressed) {
     case KEY_LEFT:
       move_block_left();
@@ -50,27 +58,33 @@ void Game::handle_input() {
 
 // Increase current block offset so draw will update accordingly
 void Game::move_block_left() {
-  current_block.move(0, -1);
-  if (is_block_outside() || block_fits() == false) {
-    current_block.move(0, 1);  // Move back within bounds
+  if(!game_over) {
+    current_block.move(0, -1);
+    if (is_block_outside() || block_fits() == false) {
+      current_block.move(0, 1);  // Move back within bounds
+    }
   }
 }
 
 // Increase current block offset so draw will update accordingly
 void Game::move_block_right() {
-  current_block.move(0, 1);
-  if (is_block_outside() || block_fits() == false) {
-    current_block.move(0, -1);  // Move back within bounds
-  }
+  if(!game_over) {
+    current_block.move(0, 1);
+    if (is_block_outside() || block_fits() == false) {
+      current_block.move(0, -1);  // Move back within bounds
+    }
+  } 
 }
 
 // Increase current block offset so draw will update accordingly
 void Game::move_block_down() {
-  current_block.move(1, 0);
-  if (is_block_outside() || block_fits() == false) {
-    current_block.move(-1, 0);  // Move back within bounds
-    lock_block();
-  }
+  if(!game_over) {
+    current_block.move(1, 0);
+    if (is_block_outside() || block_fits() == false) {
+      current_block.move(-1, 0);  // Move back within bounds
+      lock_block();
+    }
+  } 
 }
 
 // Check if any tile in the current block is outside of the grid
@@ -99,7 +113,14 @@ void Game::lock_block() {
     grid.grid[item.row][item.column] = current_block.id;
   }
   current_block = next_block;
+
+  // If the current block does not fit during spawn, then game over
+  if(block_fits() == false) {
+    game_over = true;
+  }
+
   next_block = get_random_block();
+  grid.clear_full_rows();
 }
 
 // Check if any of the cells in the 3x3 cell grid are occupied
@@ -112,4 +133,11 @@ bool Game::block_fits() {
     }
   }
   return true;
+}
+
+void Game::reset() {
+  grid.initialize();
+  blocks = get_all_blocks();
+  current_block = get_random_block();
+  next_block = get_random_block();
 }

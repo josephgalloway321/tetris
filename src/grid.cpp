@@ -58,3 +58,50 @@ bool Grid::is_cell_empty(int row, int column) {
   }
   return false;
 }
+
+// Check rows from bottom to top to find full rows
+int Grid::clear_full_rows() {
+  int completed = 0;
+  // Iterate from bottom row to top
+  for(int row = num_rows - 1; row >= 0; row--) {
+    // Check to see if the row is full
+    if(is_row_full(row)) {
+      // Since this row is full, clear it
+      clear_row(row);
+      completed++;  // Keep track of rows completed
+    }
+
+    // If the current row is not full but rows have been cleared
+    // then move the row down the amount equal to completed
+    else if(completed > 0) {
+      move_row_down(row, completed);
+    }
+  }
+  return completed;
+}
+
+// Check if a row is full starting at the bottom going up
+bool Grid::is_row_full(int row) {
+  // Iterate across the row
+  for(int column = 0; column < num_cols; column++) {
+    if(grid[row][column] == 0) {
+      return false;
+    }
+  }
+  return true;
+}
+
+// Clear the row
+void Grid::clear_row(int row) {
+  for(int column = 0; column < num_cols; column++) {
+    grid[row][column] = 0;
+  }
+}
+
+// Move the current row down a specific number of rows
+void Grid::move_row_down(int row, int num_rows) {
+  for(int column = 0; column < num_cols; column++) {
+    grid[row + num_rows][column] = grid[row][column];  // Copy values from original row to new (lower) row
+    grid[row][column] = 0;  // Erase values in original row
+  }
+}

@@ -9,6 +9,9 @@ class Grid {
     int num_cols;
     int cell_size;  // Size of each grid cell in pixels
     std::vector<Color> colors;
+    bool is_row_full(int row);
+    void clear_row(int row);
+    void move_row_down(int row, int num_rows);
 
   public:
     Grid();
@@ -18,4 +21,5 @@ class Grid {
     void draw();
     bool is_cell_outside(int row, int column);
     bool is_cell_empty(int row, int column);
+    int clear_full_rows();
 };

@@ -12,10 +12,12 @@ class Game {
     void rotate_block();
     void lock_block();
     bool block_fits();
+    void reset();
 
   public:
-    Game();
     Grid grid;
+    bool game_over;
+    Game();
     Block get_random_block();
     std::vector<Block> get_all_blocks();
     void draw();
