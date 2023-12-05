@@ -38,3 +38,20 @@ std::vector<Position> Block::get_cell_positions() {
   }
   return moved_tiles;
 }
+
+void Block::rotate() {
+  rotation_state++;
+  // Reset rotation state if it exceeds the 4 options
+  // cells is a map that contains a vector of all of the rotation states available
+  if (rotation_state == (int)cells.size()) {
+    rotation_state = 0;
+  }
+}
+
+void Block::undo_rotate() {
+  rotation_state--;
+  // Reset rotation state to the second to last option if less than zero
+  if (rotation_state == -1) {
+    rotation_state = cells.size() - 1;
+  }
+}

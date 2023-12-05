@@ -25,7 +25,6 @@ std::vector<Block> Game::get_all_blocks() {
   return {IBlock(), JBlock(), LBlock(), OBlock(), SBlock(), TBlock(), ZBlock()};
 }
 
-
 void Game::draw() {
   grid.draw();
   current_block.draw();
@@ -42,6 +41,9 @@ void Game::handle_input() {
       break;
     case KEY_DOWN:
       move_block_down();
+      break;
+    case KEY_UP:
+      rotate_block();
       break;
   }
 }
@@ -79,4 +81,11 @@ bool Game::is_block_outside() {
     }
   }
   return false;
+}
+
+void Game::rotate_block() {
+  current_block.rotate();
+  if (is_block_outside()) {
+    current_block.undo_rotate();
+  }
 }
