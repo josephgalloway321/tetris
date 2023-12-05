@@ -12,5 +12,6 @@ extern const Color CUSTOM_PURPLE;
 extern const Color CUSTOM_CYAN;
 extern const Color CUSTOM_BLUE;
 extern const Color CUSTOM_DARK_BLUE;
+extern const Color CUSTOM_LIGHT_BLUE;
 
 std::vector<Color> get_cell_colors();

@@ -20,14 +20,18 @@ bool event_triggered(double interval) {
 int main()
 {
   // Game Definitions & Initializations
-  InitWindow(300, 600, "Tetris");
+  InitWindow(500, 620, "Tetris");
   SetTargetFPS(60);
+
+  // Load font
+  Font font = LoadFontEx("../resources/monogram.ttf", 64, 0, 0);
 
   // Create game objects
   Game game;
 
   // Game loop
   while (WindowShouldClose() == false) {
+    /*****************************************************/
     // Event handling
     game.handle_input();
     
@@ -36,12 +40,22 @@ int main()
       game.move_block_down();
     }
     
+    /*****************************************************/
     // Update
 
+    /*****************************************************/
     // Draw
     BeginDrawing();
     ClearBackground(CUSTOM_DARK_BLUE);
     
+    // User interface
+    DrawTextEx(font, "Score", {365, 15}, 38, 2, WHITE);
+    DrawRectangleRounded({320, 55, 170, 60}, 0.3, 6, CUSTOM_LIGHT_BLUE);
+    DrawTextEx(font, "Next", {370, 175}, 38, 2, WHITE);
+    DrawRectangleRounded({320, 215, 170, 180}, 0.3, 6, CUSTOM_LIGHT_BLUE);
+    if(game.game_over) {
+      DrawTextEx(font, "Game Over", {320, 450}, 38, 2, RED);
+    }
     game.draw();
 
     EndDrawing();

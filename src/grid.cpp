@@ -36,9 +36,9 @@ void Grid::draw() {
   for (int row = 0; row < num_rows; row++) {
     for (int column = 0; column < num_cols; column++) {
       int cell_value = grid[row][column];
-      // Offset each pixel by one
+      // Offset each pixel by eleven
       // Shrink to 29 pixels each by subtracting one from cell size width & height
-      DrawRectangle(column*cell_size+1, row*cell_size+1, cell_size-1, cell_size-1, colors[cell_value]);  // Use cell_size to focus on coloring only specific cells
+      DrawRectangle(column*cell_size+11, row*cell_size+11, cell_size-1, cell_size-1, colors[cell_value]);  // Use cell_size to focus on coloring only specific cells
     }
   }
 }
