@@ -42,3 +42,11 @@ void Grid::draw() {
     }
   }
 }
+
+// Check if a cell from the current block is outside any of the grid boundaries
+bool Grid::is_cell_outside (int row, int column) {
+  if (row >= 0 && row < num_rows && column >= 0 && column < num_cols) {
+    return false;  // The current block is within the grid boundaries
+  }
+  return true;
+}

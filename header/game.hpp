@@ -8,6 +8,7 @@ class Game {
     std::vector<Block> blocks;
     Block current_block;
     Block next_block;
+    bool is_block_outside();
 
   public:
     Game();

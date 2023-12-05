@@ -49,14 +49,34 @@ void Game::handle_input() {
 // Increase current block offset so draw will update accordingly
 void Game::move_block_left() {
   current_block.move(0, -1);
+  if (is_block_outside()) {
+    current_block.move(0, 1);  // Move back within bounds
+  }
 }
 
 // Increase current block offset so draw will update accordingly
 void Game::move_block_right() {
   current_block.move(0, 1);
+  if (is_block_outside()) {
+    current_block.move(0, -1);  // Move back within bounds
+  }
 }
 
 // Increase current block offset so draw will update accordingly
 void Game::move_block_down() {
   current_block.move(1, 0);
+  if (is_block_outside()) {
+    current_block.move(-1, 0);  // Move back within bounds
+  }
+}
+
+// Check if any tile in the current block is outside of the grid
+bool Game::is_block_outside() {
+  std::vector<Position> tiles = current_block.get_cell_positions();
+  for (Position item : tiles) {
+    if (grid.is_cell_outside(item.row, item.column)) {
+      return true;
+    }
+  }
+  return false;
 }
