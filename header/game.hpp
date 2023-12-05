@@ -13,10 +13,12 @@ class Game {
     void lock_block();
     bool block_fits();
     void reset();
+    void update_score(int lines_cleared, int move_down_points);
 
   public:
     Grid grid;
     bool game_over;
+    int score;
     Game();
     Block get_random_block();
     std::vector<Block> get_all_blocks();

@@ -56,6 +56,13 @@ int main()
     if(game.game_over) {
       DrawTextEx(font, "Game Over", {320, 450}, 38, 2, RED);
     }
+
+    // Printing score logic
+    char score_text[10];
+    sprintf(score_text, "%d", game.score);  // Change int to text
+    Vector2 text_size = MeasureTextEx(font, score_text, 38, 2);
+    DrawTextEx(font, score_text, {320 + (170 - text_size.x)/2, 65}, 38, 2, WHITE);
+
     game.draw();
 
     EndDrawing();

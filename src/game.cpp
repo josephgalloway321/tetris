@@ -3,6 +3,7 @@
 
 Game::Game() {
   game_over = false;
+  score = 0;
   blocks = get_all_blocks();  // Vector holds available block options
   current_block = get_random_block();
   next_block = get_random_block();
@@ -49,6 +50,7 @@ void Game::handle_input() {
       break;
     case KEY_DOWN:
       move_block_down();
+      update_score(0, 1);
       break;
     case KEY_UP:
       rotate_block();
@@ -120,7 +122,8 @@ void Game::lock_block() {
   }
 
   next_block = get_random_block();
-  grid.clear_full_rows();
+  int rows_cleared = grid.clear_full_rows();
+  update_score(rows_cleared, 0);
 }
 
 // Check if any of the cells in the 3x3 cell grid are occupied
@@ -140,4 +143,22 @@ void Game::reset() {
   blocks = get_all_blocks();
   current_block = get_random_block();
   next_block = get_random_block();
+  score = 0;
+}
+
+void Game::update_score(int lines_cleared, int move_down_points) {
+  switch(lines_cleared) {
+    case 1:
+      score += 100;
+      break;
+    case 2:
+      score += 300;
+      break;
+    case 3:
+      score += 500;
+      break;
+    default:
+      break;
+  }
+  score += move_down_points;
 }
