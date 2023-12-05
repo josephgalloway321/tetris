@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <raylib.h>
+#include "../header/colors.hpp"
 
 class Grid {
   private:

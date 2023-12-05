@@ -2,6 +2,7 @@
 #include <raylib.h>
 #include "../header/grid.hpp"
 #include "../header/colors.hpp"
+#include "blocks.cpp"
 
 int main()
 {
@@ -11,7 +12,16 @@ int main()
 
   // Create game objects
   Grid grid;
-  grid.print();
+  //grid.print();
+
+  // TEST
+  //LBlock block;
+  //JBlock block;
+  //IBlock block;
+  //OBlock block;
+  //SBlock block;
+  //TBlock block;
+  //ZBlock block;
 
   // Game loop
   while (WindowShouldClose() == false) {
@@ -24,6 +34,7 @@ int main()
     ClearBackground(CUSTOM_DARK_BLUE);
 
     grid.draw();
+    //block.draw();  // TEST
 
     EndDrawing();
   }

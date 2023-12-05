@@ -1,4 +1,4 @@
-#include "position.hpp"
+#include "../header/position.hpp"
 
 // Default constructor
 // Used to represent a single position on the grid with a single object

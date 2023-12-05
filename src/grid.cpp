@@ -1,6 +1,5 @@
 #include <iostream>
 #include "../header/grid.hpp"
-#include "../header/colors.hpp"
 
 // Default constructor
 Grid::Grid() {

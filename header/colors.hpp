@@ -2,14 +2,15 @@
 #include <raylib.h>
 #include <vector>
 
-const Color CUSTOM_DARK_GRAY;
-const Color CUSTOM_GREEN;
-const Color CUSTOM_RED;
-const Color CUSTOM_ORANGE;
-const Color CUSTOM_YELLOW;
-const Color CUSTOM_PURPLE;
-const Color CUSTOM_CYAN;
-const Color CUSTOM_BLUE;
-const Color CUSTOM_DARK_BLUE;
+// Cannot use capital constants because definitions from Raylib
+extern const Color CUSTOM_DARK_GRAY;
+extern const Color CUSTOM_GREEN;
+extern const Color CUSTOM_RED;
+extern const Color CUSTOM_ORANGE;
+extern const Color CUSTOM_YELLOW;
+extern const Color CUSTOM_PURPLE;
+extern const Color CUSTOM_CYAN;
+extern const Color CUSTOM_BLUE;
+extern const Color CUSTOM_DARK_BLUE;
 
 std::vector<Color> get_cell_colors();
