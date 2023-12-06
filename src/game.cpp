@@ -4,9 +4,13 @@
 Game::Game() {
   game_over = false;
   score = 0;
+  high_score = 0;
   blocks = get_all_blocks();  // Vector holds available block options
   current_block = get_random_block();
   next_block = get_random_block();
+
+  // Game images
+  
 
   // Game aduio
   InitAudioDevice();
@@ -17,6 +21,10 @@ Game::Game() {
 }
 
 Game::~Game() {
+  // Game images
+  //UnloadTexture(volume);
+
+  // Game audio
   UnloadSound(rotate_sound);
   UnloadSound(clear_sound);
   UnloadMusicStream(music);
@@ -49,14 +57,14 @@ void Game::draw() {
   switch(next_block.id) {
     // I block
     case 3:
-      next_block.draw(255, 290);
+      next_block.draw(255, 400);
       break;
     // O block
     case 4:
-      next_block.draw(255, 280);
+      next_block.draw(255, 380);
       break;
     default:
-      next_block.draw(270, 270);
+      next_block.draw(270, 390);
       break;
   }
 }
@@ -151,6 +159,7 @@ void Game::lock_block() {
   // If the current block does not fit during spawn, then game over
   if(block_fits() == false) {
     game_over = true;
+    update_high_score();
   }
 
   next_block = get_random_block();
@@ -196,4 +205,22 @@ void Game::update_score(int lines_cleared, int move_down_points) {
       break;
   }
   score += move_down_points;
+}
+
+bool Game::is_game_over() {
+  return game_over;
+}
+
+int Game::get_score() {
+  return score;
+}
+
+int Game::get_high_score() {
+  return high_score;
+}
+
+void Game::update_high_score() {
+  if(score > high_score) {
+    high_score = score;
+  }
 }

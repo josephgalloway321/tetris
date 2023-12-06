@@ -4,6 +4,9 @@
 
 class Game {
   private:
+    int score;
+    int high_score;
+    bool game_over;
     std::vector<Block> blocks;
     Block current_block;
     Block next_block;
@@ -20,12 +23,15 @@ class Game {
     std::vector<Block> get_all_blocks();
     void move_block_left();
     void move_block_right();
+    void update_high_score();
 
   public:
-    bool game_over;
-    int score;
     Music music;
+    Texture2D volume;
     Game();
+    int get_score();
+    int get_high_score();
+    bool is_game_over();
     void draw();
     void handle_input();
     void move_block_down();
