@@ -7,6 +7,20 @@ Game::Game() {
   blocks = get_all_blocks();  // Vector holds available block options
   current_block = get_random_block();
   next_block = get_random_block();
+
+  // Game aduio
+  InitAudioDevice();
+  music = LoadMusicStream("C:/Users/josep/Documents/GitHub/tetris/resources/sounds/music.mp3");
+  rotate_sound = LoadSound("C:/Users/josep/Documents/GitHub/tetris/resources/sounds/rotate.mp3");
+  clear_sound = LoadSound("C:/Users/josep/Documents/GitHub/tetris/resources/sounds/clear.mp3");
+  PlayMusicStream(music);
+}
+
+Game::~Game() {
+  UnloadSound(rotate_sound);
+  UnloadSound(clear_sound);
+  UnloadMusicStream(music);
+  CloseAudioDevice();
 }
 
 // Return a random block from the vector that holds all block options
@@ -29,7 +43,22 @@ std::vector<Block> Game::get_all_blocks() {
 
 void Game::draw() {
   grid.draw();
-  current_block.draw();
+  current_block.draw(11, 11);
+
+  // Slightly adjust I and O blocks to center on "Next Block" part of interface
+  switch(next_block.id) {
+    // I block
+    case 3:
+      next_block.draw(255, 290);
+      break;
+    // O block
+    case 4:
+      next_block.draw(255, 280);
+      break;
+    default:
+      next_block.draw(270, 270);
+      break;
+  }
 }
 
 void Game::handle_input() {
@@ -105,6 +134,9 @@ void Game::rotate_block() {
   if (is_block_outside() || block_fits() == false) {
     current_block.undo_rotate();
   }
+  else {
+    PlaySound(rotate_sound);
+  }
 }
 
 // Update grid values to represent locked block when touches bottom screen
@@ -123,7 +155,10 @@ void Game::lock_block() {
 
   next_block = get_random_block();
   int rows_cleared = grid.clear_full_rows();
-  update_score(rows_cleared, 0);
+  if(rows_cleared > 0) {
+    PlaySound(clear_sound);
+    update_score(rows_cleared, 0);
+  }
 }
 
 // Check if any of the cells in the 3x3 cell grid are occupied

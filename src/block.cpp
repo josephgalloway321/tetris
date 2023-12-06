@@ -9,14 +9,14 @@ Block::Block() {
   column_offset = 0;
 }
 
-void Block::draw() {
+void Block::draw(int offset_x, int offset_y) {
   // Get position vector of current rotation state (includes after movement)
   std::vector<Position> tiles = get_cell_positions();
   // Iterate through the positions
   for (Position item : tiles) {
     // Offset each pixel by eleven
     // Shrink to 29 pixels each by subtracting one from cell size width & height
-    DrawRectangle(item.column*cell_size+11, item.row*cell_size+11, cell_size-1, cell_size-1, colors[id]);  // Use cell_size to focus on coloring only specific cells
+    DrawRectangle(item.column*cell_size + offset_x, item.row*cell_size + offset_y, cell_size - 1, cell_size - 1, colors[id]);  // Use cell_size to focus on coloring only specific cells
   }
 }
 

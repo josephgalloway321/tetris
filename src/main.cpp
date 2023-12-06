@@ -24,7 +24,7 @@ int main()
   SetTargetFPS(60);
 
   // Load font
-  Font font = LoadFontEx("../resources/monogram.ttf", 64, 0, 0);
+  Font font = LoadFontEx("../resources/font/monogram.ttf", 64, 0, 0);
 
   // Create game objects
   Game game;
@@ -42,6 +42,7 @@ int main()
     
     /*****************************************************/
     // Update
+    UpdateMusicStream(game.music);
 
     /*****************************************************/
     // Draw

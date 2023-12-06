@@ -16,7 +16,7 @@ class Block {
     Block();
     int id;
     std::map<int, std::vector<Position>> cells;
-    void draw();
+    void draw(int offset_x, int offset_y);
     void move(int rows, int columns);
     std::vector<Position> get_cell_positions();
     void rotate();
