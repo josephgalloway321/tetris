@@ -9,8 +9,11 @@ Game::Game() {
   current_block = get_random_block();
   next_block = get_random_block();
 
-  // Game images
-  
+  // Font and textures
+  font = LoadFontEx("C:/Users/josep/Documents/GitHub/tetris/resources/font/monogram.ttf", 64, 0, 0);
+  volume_image = LoadImage("C:/Users/josep/Documents/GitHub/tetris/resources/images/volume.png");
+  volume_texture = LoadTextureFromImage(volume_image);
+  UnloadImage(volume_image); // Image converted to texture & uploaded to VRAM, it can be unloaded now
 
   // Game aduio
   InitAudioDevice();
@@ -21,10 +24,8 @@ Game::Game() {
 }
 
 Game::~Game() {
-  // Game images
-  //UnloadTexture(volume);
-
-  // Game audio
+  UnloadFont(font);
+  UnloadTexture(volume_texture);
   UnloadSound(rotate_sound);
   UnloadSound(clear_sound);
   UnloadMusicStream(music);

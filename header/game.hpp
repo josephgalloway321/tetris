@@ -27,7 +27,9 @@ class Game {
 
   public:
     Music music;
-    Texture2D volume;
+    Font font;
+    Image volume_image;
+    Texture2D volume_texture;
     Game();
     int get_score();
     int get_high_score();
