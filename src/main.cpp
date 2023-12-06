@@ -5,6 +5,10 @@
 
 const double BLOCK_FALL_SPEED = 0.2;  // seconds
 
+// TEST FOR VOLUME BUTTON INTERACTION
+Rectangle btn_bounds = {385, 550, 50, 40};  // x, y, width, height
+int btn_state = 0;  // 0=Nothing, 1=Mouse Hover, 2= Clicked
+
 int main()
 {
   // Game Definitions & Initializations
@@ -34,6 +38,9 @@ int main()
     ***********************************/
     // Update background music
     UpdateMusicStream(game.music);
+
+    // Get mouse position
+    Vector2 mouse_position = GetMousePosition();
 
     /***********************************
     *  Draw
@@ -67,7 +74,12 @@ int main()
     game.draw();
 
     // Draw volume image
-    DrawTexture(game.volume_texture, 385, 550, BLACK);
+    if(CheckCollisionPointRec(mouse_position, btn_bounds)) {
+      DrawTexture(game.volume_texture, 385, 550, WHITE);
+    }
+    else {
+      DrawTexture(game.volume_texture, 385, 550, BLACK);
+    }
 
     EndDrawing();
   }

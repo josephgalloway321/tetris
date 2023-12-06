@@ -12,8 +12,11 @@ Game::Game() {
   // Font and textures
   font = LoadFontEx("C:/Users/josep/Documents/GitHub/tetris/resources/font/monogram.ttf", 64, 0, 0);
   volume_image = LoadImage("C:/Users/josep/Documents/GitHub/tetris/resources/images/volume.png");
+  mute_image = LoadImage("C:/Users/josep/Documents/GitHub/tetris/resources/images/mute.png");
   volume_texture = LoadTextureFromImage(volume_image);
+  mute_texture = LoadTextureFromImage(mute_image);
   UnloadImage(volume_image); // Image converted to texture & uploaded to VRAM, it can be unloaded now
+  UnloadImage(mute_image);
 
   // Game aduio
   InitAudioDevice();
@@ -26,6 +29,7 @@ Game::Game() {
 Game::~Game() {
   UnloadFont(font);
   UnloadTexture(volume_texture);
+  UnloadTexture(mute_texture);
   UnloadSound(rotate_sound);
   UnloadSound(clear_sound);
   UnloadMusicStream(music);

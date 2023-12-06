@@ -13,6 +13,8 @@ class Game {
     Grid grid;
     Sound rotate_sound;
     Sound clear_sound;
+    Image volume_image;
+    Image mute_image;
     bool is_block_outside();
     void rotate_block();
     void lock_block();
@@ -28,8 +30,8 @@ class Game {
   public:
     Music music;
     Font font;
-    Image volume_image;
     Texture2D volume_texture;
+    Texture2D mute_texture;
     Game();
     int get_score();
     int get_high_score();
