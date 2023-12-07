@@ -5,10 +5,6 @@
 
 const double BLOCK_FALL_SPEED = 0.2;  // seconds
 
-// TEST FOR VOLUME BUTTON INTERACTION
-Rectangle btn_bounds = {385, 550, 50, 40};  // x, y, width, height
-int btn_state = 0;  // 0=Nothing, 1=Mouse Hover, 2= Clicked
-
 int main()
 {
   // Game Definitions & Initializations
@@ -18,9 +14,15 @@ int main()
   // Create game objects
   Game game;
   Timer block_fall_speed_timer;
+
+  // TODO: Move sound toggle code to game.cpp within handle_input()
+  // TEST FOR VOLUME BUTTON INTERACTION
+  Rectangle btn_bounds = {385, 550, 50, 40};  // x, y, width, height
+  int mute_toggle = 1;  // -1=Mute, 1=Unmute
   
   // Game loop
   while (WindowShouldClose() == false) {
+
     /***********************************
     * Event handling
     ***********************************/
@@ -73,12 +75,36 @@ int main()
     // Draw game elements
     game.draw();
 
-    // Draw volume image
-    if(CheckCollisionPointRec(mouse_position, btn_bounds)) {
-      DrawTexture(game.volume_texture, 385, 550, WHITE);
+    // Highlight volume button when mouse hovers
+    // Toggle volume on/off when clicked
+    
+    // Button clicked within bounds, toggle
+    if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && CheckCollisionPointRec(mouse_position, btn_bounds)) {
+      mute_toggle *= -1;
     }
-    else {
-      DrawTexture(game.volume_texture, 385, 550, BLACK);
+    // Unmute and mouse within bounds of volume texture
+    else if(mute_toggle == 1 && CheckCollisionPointRec(mouse_position, btn_bounds)) {
+      DrawRectangle(385, 550, 50, 50, CUSTOM_DARK_BLUE);
+      DrawTexture(game.volume_texture, 385, 550, WHITE);
+      SetMusicVolume(game.music, 1);
+    }
+    // Unmute and mouse NOT within bounds of volume texture
+    else if(mute_toggle == 1) {
+      DrawRectangle(385, 550, 50, 50, CUSTOM_DARK_BLUE);
+      DrawTexture(game.volume_texture, 385, 550, LIGHTGRAY);
+      SetMusicVolume(game.music, 1);
+    }
+    // Mute and mouse within bounds of volume texture
+    else if(mute_toggle == -1 && CheckCollisionPointRec(mouse_position, btn_bounds)) {
+      DrawRectangle(385, 550, 50, 50, CUSTOM_DARK_BLUE);
+      DrawTexture(game.mute_texture, 385, 550, WHITE);
+      SetMusicVolume(game.music, 0);
+    }
+    // Mute and mouse NOT within bounds of volume texture
+    else if(mute_toggle == -1) {
+      DrawRectangle(385, 550, 50, 50, CUSTOM_DARK_BLUE);
+      DrawTexture(game.mute_texture, 385, 550, LIGHTGRAY);
+      SetMusicVolume(game.music, 0);
     }
 
     EndDrawing();
