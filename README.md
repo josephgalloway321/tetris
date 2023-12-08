@@ -8,5 +8,5 @@
 - However, the code can be used in future public projects
 
 # References
-- ["Programming With Nick" Pong tutorial](https://youtu.be/VLJlTaFvHo4?si=C_FO9tvcpkulfTlc) 
+- ["Programming With Nick" Tetris tutorial](https://youtu.be/wVYKG_ch4yM?si=Q8EXCJU-TYBXY46i) 
 - ["Programming With Nick" VS Code template](https://github.com/educ8s/Raylib-CPP-Starter-Template-for-VSCODE-V2)
