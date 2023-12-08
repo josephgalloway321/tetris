@@ -13,8 +13,13 @@ class Game {
     Grid grid;
     Sound rotate_sound;
     Sound clear_sound;
+    bool is_mute;
     Image volume_image;
     Image mute_image;
+    Texture2D volume_texture;
+    Texture2D mute_texture;
+    Rectangle sound_btn_bounds;
+    Vector2 mouse_position;
     bool is_block_outside();
     void rotate_block();
     void lock_block();
@@ -30,14 +35,13 @@ class Game {
   public:
     Music music;
     Font font;
-    Texture2D volume_texture;
-    Texture2D mute_texture;
     Game();
     int get_score();
     int get_high_score();
     bool is_game_over();
     void draw();
     void handle_input();
+    void handle_sound_toggle();
     void move_block_down();
     ~Game();
 };

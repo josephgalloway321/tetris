@@ -17,6 +17,7 @@ Game::Game() {
   mute_texture = LoadTextureFromImage(mute_image);
   UnloadImage(volume_image); // Image converted to texture & uploaded to VRAM, it can be unloaded now
   UnloadImage(mute_image);
+  sound_btn_bounds = {385, 550, 50, 40};
 
   // Game aduio
   InitAudioDevice();
@@ -24,6 +25,7 @@ Game::Game() {
   rotate_sound = LoadSound("C:/Users/josep/Documents/GitHub/tetris/resources/sounds/rotate.mp3");
   clear_sound = LoadSound("C:/Users/josep/Documents/GitHub/tetris/resources/sounds/clear.mp3");
   PlayMusicStream(music);
+  is_mute = false;
 }
 
 Game::~Game() {
@@ -97,6 +99,43 @@ void Game::handle_input() {
     case KEY_UP:
       rotate_block();
       break;
+  }
+}
+
+// Highlight volume button when mouse hovers
+// Toggle volume on/off when clicked
+// Button clicked within bounds, toggle
+void Game::handle_sound_toggle() {
+  mouse_position = GetMousePosition();
+
+  // Check if user within sound button bounds and clicked
+  if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && CheckCollisionPointRec(mouse_position, sound_btn_bounds)) {
+      is_mute = !is_mute;
+  }
+  
+  // Unmute and mouse within bounds of volume texture
+  if(is_mute == false && CheckCollisionPointRec(mouse_position, sound_btn_bounds)) {
+    DrawRectangle(385, 550, 50, 50, CUSTOM_DARK_BLUE);
+    DrawTexture(volume_texture, 385, 550, WHITE);
+    SetMusicVolume(music, 1);
+  }
+  // Unmute and mouse NOT within bounds of volume texture
+  else if(is_mute == false) {
+    DrawRectangle(385, 550, 50, 50, CUSTOM_DARK_BLUE);
+    DrawTexture(volume_texture, 385, 550, LIGHTGRAY);
+    SetMusicVolume(music, 1);
+  }
+  // Mute and mouse within bounds of volume texture
+  else if(is_mute == true && CheckCollisionPointRec(mouse_position, sound_btn_bounds)) {
+    DrawRectangle(385, 550, 50, 50, CUSTOM_DARK_BLUE);
+    DrawTexture(mute_texture, 385, 550, WHITE);
+    SetMusicVolume(music, 0);
+  }
+  // Mute and mouse NOT within bounds of volume texture
+  else if(is_mute == true) {
+    DrawRectangle(385, 550, 50, 50, CUSTOM_DARK_BLUE);
+    DrawTexture(mute_texture, 385, 550, LIGHTGRAY);
+    SetMusicVolume(music, 0);
   }
 }
 
