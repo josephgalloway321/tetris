@@ -19,17 +19,6 @@ void Grid::initialize() {
   }
 }
 
-// Print the value of each grid value in the terminal
-// Used primarily for testing & debugging
-void Grid::print() const {
-  for (int row = 0; row < num_rows; row++) {
-    for (int column = 0; column < num_cols; column++) {
-      std::cout << grid[row][column] << " ";
-    }
-    std::cout << "\n";
-  }
-}
-
 // Draw the appropriate color for specific cells
 // Iterate through each cell in the grid, find the cell values, and then assign a color
 void Grid::draw() {

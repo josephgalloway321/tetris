@@ -17,7 +17,6 @@ class Grid {
     Grid();
     int grid[20][10];
     void initialize();
-    void print() const;
     void draw();
     bool is_cell_outside(int row, int column);
     bool is_cell_empty(int row, int column);
