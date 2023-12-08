@@ -24,7 +24,6 @@ Game::Game() {
   music = LoadMusicStream("C:/Users/josep/Documents/GitHub/tetris/resources/sounds/music.mp3");
   rotate_sound = LoadSound("C:/Users/josep/Documents/GitHub/tetris/resources/sounds/rotate.mp3");
   clear_sound = LoadSound("C:/Users/josep/Documents/GitHub/tetris/resources/sounds/clear.mp3");
-  PlayMusicStream(music);
   is_mute = false;
 }
 
@@ -118,24 +117,32 @@ void Game::handle_sound_toggle() {
     DrawRectangle(385, 550, 50, 50, CUSTOM_DARK_BLUE);
     DrawTexture(volume_texture, 385, 550, WHITE);
     SetMusicVolume(music, 1);
+    SetSoundVolume(rotate_sound, 1);
+    SetSoundVolume(clear_sound, 1);
   }
   // Unmute and mouse NOT within bounds of volume texture
   else if(is_mute == false) {
     DrawRectangle(385, 550, 50, 50, CUSTOM_DARK_BLUE);
     DrawTexture(volume_texture, 385, 550, LIGHTGRAY);
     SetMusicVolume(music, 1);
+    SetSoundVolume(rotate_sound, 1);
+    SetSoundVolume(clear_sound, 1);
   }
   // Mute and mouse within bounds of volume texture
   else if(is_mute == true && CheckCollisionPointRec(mouse_position, sound_btn_bounds)) {
     DrawRectangle(385, 550, 50, 50, CUSTOM_DARK_BLUE);
     DrawTexture(mute_texture, 385, 550, WHITE);
     SetMusicVolume(music, 0);
+    SetSoundVolume(rotate_sound, 0);
+    SetSoundVolume(clear_sound, 0);
   }
   // Mute and mouse NOT within bounds of volume texture
   else if(is_mute == true) {
     DrawRectangle(385, 550, 50, 50, CUSTOM_DARK_BLUE);
     DrawTexture(mute_texture, 385, 550, LIGHTGRAY);
     SetMusicVolume(music, 0);
+    SetSoundVolume(rotate_sound, 0);
+    SetSoundVolume(clear_sound, 0);
   }
 }
 
@@ -232,6 +239,7 @@ void Game::reset() {
   current_block = get_random_block();
   next_block = get_random_block();
   score = 0;
+  game_over = false;
 }
 
 void Game::update_score(int lines_cleared, int move_down_points) {

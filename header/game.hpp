@@ -24,7 +24,6 @@ class Game {
     void rotate_block();
     void lock_block();
     bool block_fits();
-    void reset();
     void update_score(int lines_cleared, int move_down_points);
     Block get_random_block();
     std::vector<Block> get_all_blocks();
@@ -43,5 +42,6 @@ class Game {
     void handle_input();
     void handle_sound_toggle();
     void move_block_down();
+    void reset();
     ~Game();
 };
