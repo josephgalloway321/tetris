@@ -20,6 +20,7 @@ class Game {
     Texture2D mute_texture;
     Rectangle sound_btn_bounds;
     Vector2 mouse_position;
+    bool is_paused;
     bool is_block_outside();
     void rotate_block();
     void lock_block();
@@ -43,5 +44,7 @@ class Game {
     void handle_sound_toggle();
     void move_block_down();
     void reset();
+    void pause_game();
+    bool get_is_paused();
     ~Game();
 };

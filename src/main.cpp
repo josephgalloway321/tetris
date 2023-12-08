@@ -32,23 +32,31 @@ int main()
       } break;
       
       case gameplay: {
-        // Handle user input
-        game.handle_input();
-        game.handle_sound_toggle();
-
-        // Handle time passed to regulate block falling speed
-        if(block_fall_speed_timer.elapsed() > BLOCK_FALL_SPEED) {
-          game.move_block_down();
-          block_fall_speed_timer.reset_timer();
+        // Check if user toggled pause 
+        if(IsKeyPressed(KEY_P)) {
+          game.pause_game();
         }
 
-        // Update background music
-        UpdateMusicStream(game.music);
+        // If the game is not paused
+        if(!game.get_is_paused()) {
+          // Handle user input
+          game.handle_input();
+          game.handle_sound_toggle();
 
-        // Check if game over
-        if(game.is_game_over()) {
-          current_screen = ending;
-          StopMusicStream(game.music);
+          // Handle time passed to regulate block falling speed
+          if(block_fall_speed_timer.elapsed() > BLOCK_FALL_SPEED) {
+            game.move_block_down();
+            block_fall_speed_timer.reset_timer();
+          }
+
+          // Update background music
+          UpdateMusicStream(game.music);
+
+          // Check if game over
+          if(game.is_game_over()) {
+            current_screen = ending;
+            StopMusicStream(game.music);
+          }
         }
       } break;
 
@@ -64,8 +72,6 @@ int main()
         break;
     }
 
-
-
     /***********************************
     *  Draw
     ***********************************/
@@ -74,7 +80,10 @@ int main()
     switch(current_screen) {
       case title: {
         ClearBackground(CUSTOM_DARK_BLUE);
-        DrawTextEx(game.font, "Tetris", {100, 100}, 42, 2, BLACK);
+        DrawTextEx(game.font, "Tetris", {(float)GetScreenWidth()/2 - 60, (float)GetScreenHeight()/2 - 200}, 50, 2, BLACK);
+        DrawTextEx(game.font, "Press P to pause the game", {(float)GetScreenWidth()/2 - 220, (float)GetScreenHeight()/2 + 50}, 30, 2, WHITE);
+        DrawTextEx(game.font, "Use the arrow keys to play", {(float)GetScreenWidth()/2 - 220, (float)GetScreenHeight()/2 + 100}, 30, 2, WHITE);
+        DrawTextEx(game.font, "Press the space bar to begin", {(float)GetScreenWidth()/2 - 220, (float)GetScreenHeight()/2 + 150}, 30, 2, WHITE);
       } break;
 
       case gameplay: {
@@ -98,6 +107,11 @@ int main()
         Vector2 high_score_text_size = MeasureTextEx(game.font, high_score_text, 32, 2);
         DrawTextEx(game.font, high_score_text, {320 + (170 - high_score_text_size.x)/2, 85}, 32, 2, WHITE);
 
+        // Show pause button if paused
+        if(game.get_is_paused()) {
+          DrawTextEx(game.font, "PAUSED", {355, 550}, 32, 2, RED);
+        }
+
         // Draw game elements
         game.draw();
 
@@ -105,7 +119,8 @@ int main()
 
       case ending: {
         ClearBackground(BLACK);
-        DrawTextEx(game.font, "Game Over", {100, 100}, 42, 2, RED);
+        DrawTextEx(game.font, "Game Over", {(float)GetScreenWidth()/2 - 110, (float)GetScreenHeight()/2 - 200}, 50, 2, RED);
+        DrawTextEx(game.font, "Press the space bar to try again", {(float)GetScreenWidth()/2 - 225, (float)GetScreenHeight()/2 + 150}, 26, 2, WHITE);
         
       } break;
 

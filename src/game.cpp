@@ -8,6 +8,7 @@ Game::Game() {
   blocks = get_all_blocks();  // Vector holds available block options
   current_block = get_random_block();
   next_block = get_random_block();
+  is_paused = false;
 
   // Font and textures
   font = LoadFontEx("C:/Users/josep/Documents/GitHub/tetris/resources/font/monogram.ttf", 64, 0, 0);
@@ -98,7 +99,18 @@ void Game::handle_input() {
     case KEY_UP:
       rotate_block();
       break;
+    default:
+      break;
   }
+
+  // Check if down key held down
+  // TODO: Blocks fall down WAY too fast
+  /*
+  if(IsKeyDown(KEY_DOWN)) {
+    move_block_down();
+    update_score(0, 1);
+  }
+  */
 }
 
 // Highlight volume button when mouse hovers
@@ -144,6 +156,15 @@ void Game::handle_sound_toggle() {
     SetSoundVolume(rotate_sound, 0);
     SetSoundVolume(clear_sound, 0);
   }
+}
+
+// Pause/Resume the game
+void Game::pause_game() {
+  is_paused = !is_paused;
+}
+
+bool Game::get_is_paused() {
+  return is_paused;
 }
 
 // Increase current block offset so draw will update accordingly
